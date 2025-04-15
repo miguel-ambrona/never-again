@@ -1,0 +1,19 @@
+{
+  "name": "never-again",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "dependencies": {
+    "@chrisoakman/chessboardjs": "^1.0.0",
+    "board": "file:../board",
+    "express": "^5.1.0",
+    "jquery": "^3.7.1",
+    "mongodb": "^6.15.0"
+  }
+}
