@@ -12,16 +12,31 @@
 
     <link rel="icon" href="/favicon.ico" type="image/x-icon">
     <link rel="stylesheet" href="/board/styles.css">
+    <link rel="stylesheet" href="/css/index.css">
+
+    <script>
+        const token = localStorage.getItem('token');
+        if (!token) {
+            window.location.href = '/login.html';
+        }
+    </script>
 </head>
 
 <body>
-    <div id="board" style="max-width: 1700px"></div>
+
+    <div class="top-bar">
+        <div id="username" class="top-bar-item"></div>
+        <div id="streak-counter" class="top-bar-item"></div>
+        <div id="logout" class="top-bar-item" onclick="logout()">Logout</div>
+    </div>
+
+    <div id="board" style="max-width: 1000px"></div>
 
     <script src="./board/node_modules/jquery/dist/jquery.min.js"></script>
     <script src="./board/node_modules/@chrisoakman/chessboardjs/dist/chessboard-1.0.0.js"></script>
     <script src="./board/index.js" type="module"></script>
 
-    <script src="neveragain.js" type="module"></script>
+    <script src="js/neveragain.js" type="module"></script>
 </body>
 
 </html>

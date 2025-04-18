@@ -1,4 +1,4 @@
-import { ChessBoard } from "./board/index.js";
+import { ChessBoard } from "../board/index.js";
 
 let puzzle = null;
 let correct = true;
@@ -62,32 +62,46 @@ function loadPuzzle() {
     board.orientation(puzzle.fen.includes(" w ") ? "white" : "black");
     board.set_fen(puzzle.fen);
     correct = true;
-    console.log(puzzle);
 }
 
 async function sendResult(puzzleId, wasCorrect) {
-    const response = await fetch(`http://localhost:3141/api/puzzle/${puzzleId}/result`, {
+    const token = localStorage.getItem('token');
+    const response = await fetch(`/api/puzzle/${puzzleId}/result`, {
         method: 'POST',
         headers: {
-            'Content-Type': 'application/json'
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
         },
-        body: JSON.stringify({ correct: wasCorrect })
+        body: JSON.stringify({ correct: wasCorrect, localDate: Date() })
     });
-
-    const data = await response.json();
-    console.log('Result updated:', data);
+    await response.json();
 }
 
 async function getPuzzle() {
-    try {
-        const res = await fetch('http://localhost:3141/api/puzzle');
-        puzzle = await res.json();
-        loadPuzzle();
+    const token = localStorage.getItem('token');
+    const res = await fetch('/api/puzzle', {
+        headers: {
+            Authorization: `Bearer ${token}`
+        }
+    });
+    puzzle = await res.json();
+    loadPuzzle();
+    getStreak();
+}
 
-    } catch (err) {
-        console.error('Error fetching puzzle:', err);
-    }
+async function getStreak() {
+    const token = localStorage.getItem('token');
+    const res = await fetch('/api/streak', {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ localDate: Date() })
+    });
+    const data = await res.json();
+    document.querySelector('#streak-counter').innerText = `🔥 ${data.streak}`;
+    document.querySelector('#username').innerText = `${data.username}`;
 }
 
 setTimeout(getPuzzle, 50);
-

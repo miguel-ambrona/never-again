@@ -1,0 +1,34 @@
+body {
+    /* Dark Navy */
+    background-color: #111827;
+}
+
+/* Top bar */
+.top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #1c1c1c;
+    /* Dark background like Lichess */
+    color: #f0f0f0;
+    /* Light text */
+    padding: 0.75rem 1.5rem;
+    font-family: 'Segoe UI', sans-serif;
+    font-size: 1rem;
+}
+
+/* Each item */
+.top-bar-item {
+    padding: 0.25rem 0.5rem;
+}
+
+/* Logout button */
+#logout {
+    cursor: pointer;
+    color: #f87171;
+    /* Subtle red */
+}
+
+#logout:hover {
+    text-decoration: underline;
+}

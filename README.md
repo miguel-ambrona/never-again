@@ -12,6 +12,8 @@ Run:
 ```
 npm install express
 npm install mongodb
+npm install bcrypt
+npm install jsonwebtoken
 npm install ../board  # Adjust path based on where you cloned `board`
 ```
 
