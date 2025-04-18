@@ -11,10 +11,10 @@ app.use(express.json());
 
 const port = 3141;
 
-const credentials = {
-    key: fs.readFileSync('/etc/letsencrypt/live/chasolver.org/privkey.pem', 'utf8'),
-    cert: fs.readFileSync('/etc/letsencrypt/live/chasolver.org/fullchain.pem', 'utf8')
-}
+// const credentials = {
+// key: fs.readFileSync('/etc/letsencrypt/live/chasolver.org/privkey.pem', 'utf8'),
+// cert: fs.readFileSync('/etc/letsencrypt/live/chasolver.org/fullchain.pem', 'utf8')
+// }
 
 // Serve static files (like HTML, CSS, JS) from the 'public' directory
 app.use(express.static(path.join(__dirname, 'public')));
@@ -32,7 +32,8 @@ app.use('/api', authRoutes);
 app.use('/api', puzzleRoutes);
 
 connectToDb().then(() => {
-    https.createServer(credentials, app).listen(port, () => {
-	console.log(`✅ Server running on http://localhost:${port}`);
+    // https.createServer(credentials, app).listen(port, () => {
+    app.listen(port, () => {
+        console.log(`✅ Server running on http://localhost:${port}`);
     });
 });

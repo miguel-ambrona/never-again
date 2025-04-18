@@ -34,7 +34,7 @@ if __name__ == '__main__':
     with open(username + '.txt', 'r') as f:
         for line in f.readlines():
             cnt += 1
-            if cnt > 20:
+            if cnt > 1:
                 continue
             (fen, line) = line.strip().split(": ")
             if len(line) < 3:

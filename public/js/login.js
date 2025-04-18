@@ -64,8 +64,3 @@ async function signup(username, password) {
         messageEl.style.color = 'red';
     }
 }
-
-function logout() {
-    localStorage.removeItem('token');
-    window.location.href = '/login.html';
-}

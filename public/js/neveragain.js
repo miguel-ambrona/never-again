@@ -107,6 +107,6 @@ async function getStreak() {
 const checkBoardLoaded = setInterval(() => {
     if (board) {
         clearInterval(checkBoardLoaded); // Stop checking
-	getPuzzle();
+        getPuzzle();
     }
 }, 100);
