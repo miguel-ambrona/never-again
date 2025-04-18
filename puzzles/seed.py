@@ -4,7 +4,7 @@ import chess.pgn
 from pymongo import MongoClient
 
 # Connect to local MongoDB
-client = MongoClient("mongodb://chasolver.org:27017")
+client = MongoClient("mongodb://chasolver.org:35114")
 db = client["chess"]
 collection = db["puzzles"]
 

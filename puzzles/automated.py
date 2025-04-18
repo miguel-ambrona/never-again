@@ -150,7 +150,7 @@ def analyze_game(db_collection, f, game, lichess_username, analyzed_fens, userID
 if __name__ == '__main__':
 
     # Connect to local MongoDB
-    client = MongoClient("mongodb://chasolver.org:27017")
+    client = MongoClient("mongodb://chasolver.org:35114")
     db = client["chess"]
     db_collection = db["puzzles"]
 
