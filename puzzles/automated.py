@@ -4,6 +4,7 @@ import chess
 import chess.engine
 import chess.pgn
 
+from datetime import datetime
 from time import sleep
 from pymongo import MongoClient
 
@@ -117,7 +118,7 @@ def analyze_game(db_collection, f, game, lichess_username, analyzed_fens, userID
             print("Analyzing %s from %s" % (fen, lichess_username))
             b = chess.Board(fen)
             g = chess.pgn.Game().from_board(b)
-            analyze(g, 0, True)
+            analyze(g, 0, False)
             line = str(g).split("\n")[-1]
             print(line)
 
@@ -157,7 +158,8 @@ if __name__ == '__main__':
         # ("ambrona", "ambrona", "67fff5a84cf364b0d865a0ed"),
         # ("shosei-jutsu", "ambrona", "67fff5a84cf364b0d865a0ed")
         ("ambrona", "ambrona", "680246353c76bf6738edc1dd"),
-        ("shosei-jutsu", "ambrona", "680246353c76bf6738edc1dd")
+        ("shosei-jutsu", "ambrona", "680246353c76bf6738edc1dd"),
+        ("pierre_nodoyuna", "iquerejeta", "68026c80a4c658513e5ed496")
     }    
 
     USER_PUZZLES = {}
@@ -174,7 +176,13 @@ if __name__ == '__main__':
     while True:
         for (lichess_username, db_username, userID) in USERS:
 
-            os.system('curl https://lichess.org/api/games/user/%s?max=10 > /tmp/games.pgn' % lichess_username)
+            if db_username == "nevado":
+                month = datetime.now().strftime("%Y/%m")
+                os.system('curl https://api.chess.com/pub/player/%s/games/%s > /tmp/games.pgn' % (lichess_username, month))
+                
+            else:
+                os.system('curl https://lichess.org/api/games/user/%s?max=10 > /tmp/games.pgn' % lichess_username)
+
             pgn = open("/tmp/games.pgn")
 
             with open(db_username + '.txt', 'a') as f:
