@@ -45,7 +45,6 @@ router.get('/puzzle', requireAuth, async (req, res) => {
             weight *= 0.000001;
         }
 
-        console.log(weight);
         return { puzzle: p, weight };
     });
 
@@ -72,8 +71,6 @@ router.get('/puzzle', requireAuth, async (req, res) => {
     }
     solution.push(moves[0]);
     puzzle.solution = solution;
-
-    console.log(puzzle);
 
     res.json(puzzle);
 });

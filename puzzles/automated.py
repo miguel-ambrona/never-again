@@ -3,6 +3,7 @@ import sys
 import chess
 import chess.engine
 import chess.pgn
+import json
 
 from datetime import datetime
 from time import sleep
@@ -157,9 +158,11 @@ if __name__ == '__main__':
         # Local usernames
         # ("ambrona", "ambrona", "67fff5a84cf364b0d865a0ed"),
         # ("shosei-jutsu", "ambrona", "67fff5a84cf364b0d865a0ed")
-        ("ambrona", "ambrona", "680246353c76bf6738edc1dd"),
-        ("shosei-jutsu", "ambrona", "680246353c76bf6738edc1dd"),
-        ("pierre_nodoyuna", "iquerejeta", "68026c80a4c658513e5ed496")
+        # ("ambrona", "ambrona", "6802783ee5cbab90672646cb"),
+        ("shosei-jutsu", "ambrona", "6802783ee5cbab90672646cb"),
+        ("pierre_nodoyuna", "iquerejeta", "680278799e625bcc5fbf48aa"),
+        ("HardradaII", "nevado", "680278ad183bfeac9bb875fb"),
+        ("vonaka", "vonaka", "680279e12c6df85939bd7217")
     }    
 
     USER_PUZZLES = {}
@@ -178,8 +181,14 @@ if __name__ == '__main__':
 
             if db_username == "nevado":
                 month = datetime.now().strftime("%Y/%m")
-                os.system('curl https://api.chess.com/pub/player/%s/games/%s > /tmp/games.pgn' % (lichess_username, month))
-                
+                os.system('curl https://api.chess.com/pub/player/%s/games/%s > /tmp/games.pgn' % (lichess_username.lower(), month))
+                with open('/tmp/games.pgn', 'r') as file:
+                    data = json.load(file)
+
+                with open('/tmp/games.pgn', 'w') as file:
+                    for game in data["games"][-10:]:
+                        file.write(game["pgn"])
+
             else:
                 os.system('curl https://lichess.org/api/games/user/%s?max=10 > /tmp/games.pgn' % lichess_username)
 
