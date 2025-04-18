@@ -104,4 +104,9 @@ async function getStreak() {
     document.querySelector('#username').innerText = `${data.username}`;
 }
 
-setTimeout(getPuzzle, 50);
+const checkBoardLoaded = setInterval(() => {
+    if (board) {
+        clearInterval(checkBoardLoaded); // Stop checking
+	getPuzzle();
+    }
+}, 100);
