@@ -4,12 +4,20 @@ import chess.pgn
 from pymongo import MongoClient
 
 # Connect to local MongoDB
-client = MongoClient("mongodb://localhost:27017")
+client = MongoClient("mongodb://chasolver.org:27017")
 db = client["chess"]
 collection = db["puzzles"]
 
 # Optional: clear old data
-collection.delete_many({})
+# collection.delete_many({})
+# result = collection.delete_many({"userId": "680279e12c6df85939bd7217"})
+# print(result)
+
+documents = db["users"].find()
+
+# Print each document
+for doc in documents:
+    print(doc)
 
 def parse_variation(game, depth):
     res = []
@@ -34,7 +42,7 @@ if __name__ == '__main__':
     with open(username + '.txt', 'r') as f:
         for line in f.readlines():
             cnt += 1
-            if cnt > 1:
+            if cnt > 100:
                 continue
             (fen, line) = line.strip().split(": ")
             if len(line) < 3:
@@ -53,7 +61,7 @@ if __name__ == '__main__':
                 "successes": 0, 
                 "streak": 0,
                 "lastSeen": None,
-                "userId": "67fff5a84cf364b0d865a0ed"
+                "userId": "6802783ee5cbab90672646cb"
             })
 
     # Insert into MongoDB

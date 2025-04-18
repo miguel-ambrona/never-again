@@ -109,4 +109,4 @@ const checkBoardLoaded = setInterval(() => {
         clearInterval(checkBoardLoaded); // Stop checking
         getPuzzle();
     }
-}, 100);
+}, 500);

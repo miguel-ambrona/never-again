@@ -23,6 +23,7 @@ app.use(express.static(path.join(__dirname, 'public')));
 app.use('/board', express.static(path.join(__dirname, '../board/public')));
 app.use('/board/node_modules', express.static(path.join(__dirname, '../board/node_modules')));
 app.use('/img', express.static(path.join(__dirname, '../board/public/img')));
+app.use('/audio', express.static(path.join(__dirname, '../board/public/audio')));
 
 app.get('/', function (req, res) {
     res.sendfile('./public/index.html');

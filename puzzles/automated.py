@@ -112,7 +112,7 @@ def analyze_game(db_collection, f, game, lichess_username, analyzed_fens, userID
         if len(moves) > 1:
             diff = moves[0]['score'] - moves[1]['score']
 
-        both_are_very_winning = moves[1]['score'] > 500 and diff < 200
+        both_are_very_winning = len(moves) > 1 and moves[1]['score'] > 500 and diff < 200
 
         if diff > 40 and move != moves[0]['move'] and not both_are_very_winning:
             fen = board.fen()
@@ -158,11 +158,14 @@ if __name__ == '__main__':
         # Local usernames
         # ("ambrona", "ambrona", "67fff5a84cf364b0d865a0ed"),
         # ("shosei-jutsu", "ambrona", "67fff5a84cf364b0d865a0ed")
-        # ("ambrona", "ambrona", "6802783ee5cbab90672646cb"),
+        ("ambrona", "ambrona", "6802783ee5cbab90672646cb"),
         ("shosei-jutsu", "ambrona", "6802783ee5cbab90672646cb"),
         ("pierre_nodoyuna", "iquerejeta", "680278799e625bcc5fbf48aa"),
         ("HardradaII", "nevado", "680278ad183bfeac9bb875fb"),
-        ("vonaka", "vonaka", "680279e12c6df85939bd7217")
+        ("vonaka", "vonaka", "680279e12c6df85939bd7217"),
+        ("elenagutiv", "elenagutiv", "68028e5298d3f076a5afdffe"),
+        ("golvi", "golvi", "6802909898d3f076a5afdfff"),
+        ("palladio777", "nappa", "6802964398d3f076a5afe000")
     }    
 
     USER_PUZZLES = {}
@@ -179,7 +182,7 @@ if __name__ == '__main__':
     while True:
         for (lichess_username, db_username, userID) in USERS:
 
-            if db_username == "nevado":
+            if db_username == "nevado" or db_username == "nappa":
                 month = datetime.now().strftime("%Y/%m")
                 os.system('curl https://api.chess.com/pub/player/%s/games/%s > /tmp/games.pgn' % (lichess_username.lower(), month))
                 with open('/tmp/games.pgn', 'r') as file:
@@ -190,7 +193,7 @@ if __name__ == '__main__':
                         file.write(game["pgn"])
 
             else:
-                os.system('curl https://lichess.org/api/games/user/%s?max=10 > /tmp/games.pgn' % lichess_username)
+                os.system('curl "https://lichess.org/api/games/user/%s?max=10&perfType=bullet,blitz,rapid,classical" > /tmp/games.pgn' % lichess_username)
 
             pgn = open("/tmp/games.pgn")
 
